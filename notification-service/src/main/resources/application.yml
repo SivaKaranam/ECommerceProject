@@ -1,0 +1,61 @@
+server:
+  port: ${SERVER_PORT:8085}
+
+spring:
+  application:
+    name: notification-service
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      group-id: notification-service
+      auto-offset-reset: earliest
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      properties:
+        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+        spring.json.trusted.packages: "com.sivakaranam.ecommerce.*"
+        # Each producer's event record lives under its own service package, so
+        # the __TypeId__ header they send needs remapping to the local copy here.
+        spring.json.type.mapping: >-
+          com.sivakaranam.ecommerce.order.kafka.OrderCreatedEvent:com.sivakaranam.ecommerce.notification.kafka.OrderCreatedEvent,
+          com.sivakaranam.ecommerce.payment.service.PaymentCompletedEvent:com.sivakaranam.ecommerce.notification.kafka.PaymentCompletedEvent
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+  mail:
+    host: ${MAIL_HOST:localhost}
+    port: ${MAIL_PORT:1025}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: ${MAIL_SMTP_AUTH:false}
+          starttls:
+            enable: ${MAIL_SMTP_STARTTLS:false}
+
+app:
+  mail:
+    from: ${MAIL_FROM:no-reply@ecommerce.test}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%X{requestId}] %-5level %logger{36} - %msg%n"
+  level:
+    com.sivakaranam.ecommerce: DEBUG
