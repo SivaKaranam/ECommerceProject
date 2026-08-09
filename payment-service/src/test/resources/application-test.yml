@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:paymentdb;MODE=MySQL;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  flyway:
+    enabled: false
+
+eureka:
+  client:
+    enabled: false
+
+app:
+  jwt:
+    secret: test-only-secret-key-that-is-at-least-32-bytes-long
+  payment:
+    razorpay:
+      key-id: rzp_test_dummy
+      key-secret: dummy_secret
+      webhook-secret: dummy_webhook_secret
