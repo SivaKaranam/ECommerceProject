@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build and run tests (full multi-module reactor)
+        run: ./mvnw -B clean verify
+
+      - name: Build Docker image for each service
+        run: |
+          for service in service-registry api-gateway user-service product-service order-service payment-service notification-service; do
+            docker build -f "$service/Dockerfile" -t "ecommerce-$service:${{ github.sha }}" .
+          done
