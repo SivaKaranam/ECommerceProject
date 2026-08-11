@@ -80,4 +80,4 @@ Request → API Gateway → Product Service → Elasticsearch
 Cart Service saves → Kafka → CartActivityLogged
 
 ### Checkout
-Order Service → Kafka → Payment Service → Order Updated
+Order Service -> Kafka -> Payment Service → Order Updated
