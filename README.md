@@ -1,6 +1,6 @@
 # ECommerceProject
 
-Backend capstone project for the Scaler Neovarsity / Woolf Master's in Computer Science (Backend Specialization). A microservices e-commerce backend covering authentication and authorization, search, payments, messaging and background jobs, deployment, the data layer, testing, and observability.
+A microservices e-commerce backend covering authentication and authorization, search, payments, messaging and background jobs, deployment, the data layer, testing, and observability.
 
 ## Architecture
 
@@ -82,8 +82,5 @@ Runs the full reactor: unit tests (Mockito), Spring MVC slice tests, repository 
 ## Folders
 
 - `common/`, `service-registry/`, `api-gateway/`, `user-service/`, `product-service/`, `order-service/`, `payment-service/`, `notification-service/`: one Maven module each
-- `docs/`: the original PRD notes
-- `scripts/`: placeholder for local setup helpers
-- `deployments/`: placeholder for deployment-related assets
+- `docs/`: the original PRD notes and architecture diagrams
 - `.github/workflows/`: CI pipeline
-- `Scaler_Neovarsity_Academy_Project_Report.docx`: the project report

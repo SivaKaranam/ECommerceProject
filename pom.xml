@@ -16,7 +16,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>ecommerce-platform</name>
-    <description>Backend capstone project - e-commerce microservices platform</description>
+    <description>E-commerce microservices platform</description>
 
     <properties>
         <java.version>17</java.version>
